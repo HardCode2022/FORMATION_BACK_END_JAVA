@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "nom": "Bob",
+        "age": 48,
+        "poste": "Architecte Java",
+        "competences": "JEE,TALEND,BO",
+        "note": "4,5",
+        "image": "assets/images/bob.png"
+    },
+    {
+        "id": 2,
+        "nom": "Alice",
+        "age": 34,
+        "poste": "Ingenieur BI",
+        "competences": "HTML,CSS,MSBI",
+        "note": "2,5",
+        "image": "assets/images/alice.png"
+    },
+    {
+        "id": 3,
+        "nom": "Charles",
+        "age": 33,
+        "poste": "Consultant Java",
+        "competences": "BI,QLIKVIEW,PYTHON",
+        "note": "5",
+        "image": "assets/images/Charles.png"
+    },
+    {
+        "id": 4,
+        "nom": "Rob",
+        "age": 23,
+        "poste": "Consultant Power BI",
+        "competences": "MAVEN,HIBERNATE,AIA",
+        "note": "3,5",
+        "image": "assets/images/rob.png"
+    },
+    {
+        "id": 5,
+        "nom": "Kilian",
+        "age": 38,
+        "poste": "Informaticien",
+        "competences": "KAFTA,QLIKSENCE,C++",
+        "note": "4",
+        "image": "assets/images/Kilian.png"
+    },
+    {
+        "id": 6,
+        "nom": "Roland",
+        "age": 40,
+        "poste": "Ingenieur Decisionnel",
+        "competences": "TEST,APPELLE,INTERNET",
+        "note": "3,7",
+        "image": "assets/images/Roland.png"
+    }
+]
