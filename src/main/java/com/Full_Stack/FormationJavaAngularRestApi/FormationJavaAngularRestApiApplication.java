@@ -9,5 +9,4 @@ public class FormationJavaAngularRestApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FormationJavaAngularRestApiApplication.class, args);
 	}
-
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.exception.PasUtil
 import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.repoutilisateur.UtilisateurJpaRepo;
 
 /**
- * @author Ordinateur
+ * @author Maurice
  *
  */
 @CrossOrigin(origins = "http://localhost:4200")
@@ -36,23 +37,22 @@ public class UtilisateurController {
 
 	private static Logger LOGGER = Logger.getLogger(UtilisateurController.class.getName());
 
-	@Autowired
-	private UtilisateurJpaRepo utilisateurJpaRepo;
+    @Autowired
+	private UtilisateurService utilisateurService;
 
 	// Recuperation de la liste complete de utilisateurs
 	@GetMapping("utilisateurs")
 	public ResponseEntity<List<Utilisateur>> recupererListeUtilisateur() {
-		LOGGER.info("TEST MAURICE");
-		return new ResponseEntity<>(utilisateurJpaRepo.findAll(), HttpStatus.OK);
+		LOGGER.info("Recuperation de la liste des utilisateurs");
+		return new ResponseEntity<>(utilisateurService.recupererListeUtilisateur(), HttpStatus.OK);
 	}
 
 	// Recuperer un utilisateur par Id
 	@GetMapping("utilisateurs/{id}")
 	public ResponseEntity<Utilisateur> recupererUtilisateurParId(@PathVariable Long id) throws PasUtilisateurException {
-
-		Optional<Utilisateur> utilisateur = utilisateurJpaRepo.findById(id);
+		Optional<Utilisateur> utilisateur = utilisateurService.recupererUtilisateurParId(id);
 		if (utilisateur.isPresent()) {
-			LOGGER.info("TEST MAURICE");
+			LOGGER.info("Recuperation utilisateur par id");
 			return new ResponseEntity<>(utilisateur.get(), HttpStatus.OK);
 		} else {
 			throw new PasUtilisateurException("Aucun utilisateur trouvé pour l'id defini");
@@ -64,7 +64,7 @@ public class UtilisateurController {
 	public ResponseEntity<Utilisateur> creationUtilisateur(@RequestBody Utilisateur nouveauUtilisateur)
 			throws ServerException {
 
-		Utilisateur utilisateur = utilisateurJpaRepo.save(nouveauUtilisateur);
+		Utilisateur utilisateur = utilisateurService.creationUtilisateur(nouveauUtilisateur);
 
 		if (utilisateur == null) {
 			throw new ServerException("Erreur de serveur");
@@ -80,7 +80,7 @@ public class UtilisateurController {
 	// Suppression de l'utilisateur par Id
 	@DeleteMapping("utilisateur/suppression/{id}")
 	public ResponseEntity<Void> suppressionUtilisateurParId(@PathVariable Long id) {
-		utilisateurJpaRepo.deleteById(id);
+		   utilisateurService.suppressionUtilisateur(id);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -88,18 +88,10 @@ public class UtilisateurController {
 	@PutMapping("utilisateur/miseAjour/{id}")
 	public ResponseEntity<Utilisateur> miseAjourUtilisateur(@PathVariable Long id, @RequestBody Utilisateur util) {
 
-		Utilisateur utilisateur = utilisateurJpaRepo.save(util);
+		Utilisateur utilisateur = utilisateurService.miseAjourUtilisateur(id,util);
 
 		return new ResponseEntity<Utilisateur>(utilisateur, HttpStatus.OK);
 
-	}
-
-	public UtilisateurJpaRepo getUtilisateurJpaRepo() {
-		return utilisateurJpaRepo;
-	}
-
-	public void setUtilisateurJpaRepo(UtilisateurJpaRepo utilisateurJpaRepo) {
-		this.utilisateurJpaRepo = utilisateurJpaRepo;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.service.UtilisateurService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -22,15 +23,12 @@ import junit.framework.Assert;
 @RunWith(MockitoJUnitRunner.class)
 public class FormationJavaAngularRestApiApplicationTests {
 
-	private UtilisateurJpaRepo utilisateurJpaRepo;
-
-	private UtilisateurController utilisateurController;
+	private UtilisateurService utilisateurService;
 
 	@Before
 	public void init() {
-		utilisateurController = new UtilisateurController();
-		utilisateurJpaRepo = Mockito.mock(UtilisateurJpaRepo.class);
-		utilisateurController.setUtilisateurJpaRepo(utilisateurJpaRepo);
+		utilisateurService = Mockito.mock(UtilisateurService.class);
+		//utilisateurController.setUtilisateurJpaRepo(utilisateurJpaRepo);
 
 	}
 
@@ -44,9 +42,8 @@ public class FormationJavaAngularRestApiApplicationTests {
 
 		Utilisateur[] utilisateur = mapper.readValue(file, Utilisateur[].class);
 
-		List<Utilisateur> utilir = utilisateurJpaRepo.findAll();
+		List<Utilisateur> utilir = utilisateurService.recupererListeUtilisateur();
 		Assert.assertEquals(utilir, utilisateur);
 
 	}
-
 }
