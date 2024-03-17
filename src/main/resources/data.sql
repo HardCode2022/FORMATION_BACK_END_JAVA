@@ -1,4 +1,6 @@
 -----------------------------------------------------TABLE DES UTILISATEURS-------------------------------------------------------------------------------------
+ALTER SEQUENCE utilisateur_id_seq INCREMENT BY 1;
+
 insert into Utilisateur(id,nom,age,poste,competences,note,image)
 values(1,'Bob MARLEY',48,'Architecte Java','JEE,TALEND,BO','4,5','assets/images/bob.png');
 
