@@ -1,15 +1,15 @@
 package com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.entite;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "UTILISATEUR")
 public class Utilisateur {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="utilisateur_sequence")
+	@SequenceGenerator(name="utilisateur_sequence", sequenceName="utilisateur_id_seq", allocationSize=1)
 	private Long  id ;
 	private String nom ;
 	private Long age;
@@ -17,9 +17,8 @@ public class Utilisateur {
 	private String competences;
 	private String note;
 	private String image;
-	
+
 	public Utilisateur() {
-		
 	}
 
 	public Utilisateur(Long id, String nom, Long age, String poste, String competences, String note, String image) {
@@ -79,7 +78,5 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [id=" + id + ", nom=" + nom + ", age=" + age + ", poste=" + poste + ", competences="
 				+ competences + ", note=" + note + ", image=" + image + "]";
-	} 
-	
-	
+	}
 }
