@@ -59,15 +59,6 @@ public class RestApiController {
 	@Autowired
 	private UserRepository userRepository;
 
-	/*@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@RequestBody LoginForm loginRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String token = jwtTokenProvider.generateToken(authentication);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(token));
-	}*/
-
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> authUser(@RequestBody LoginForm loginRequest) {
 
