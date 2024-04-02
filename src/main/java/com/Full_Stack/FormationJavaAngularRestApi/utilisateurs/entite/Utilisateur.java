@@ -10,8 +10,8 @@ public class Utilisateur {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="utilisateur_sequence")
 	@SequenceGenerator(name="utilisateur_sequence", sequenceName="utilisateur_id_seq", allocationSize=1)
-	private Long  id ;
-	private String nom ;
+	private Long  id;
+	private String nom;
 	private Long age;
 	private String poste;
 	private String competences;

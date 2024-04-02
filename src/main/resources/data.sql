@@ -1,5 +1,11 @@
 -----------------------------------------------------TABLE DES UTILISATEURS-------------------------------------------------------------------------------------
 ALTER SEQUENCE utilisateur_id_seq INCREMENT BY 1;
+---
+INSERT INTO public.user_connexion(user_id, password, username)
+VALUES (1, 'Janvier2024@', 'MAU0932');
+
+INSERT INTO public.user_role(role_id, role_name)
+VALUES (1, 'ADMIN');
 
 insert into Utilisateur(id,nom,age,poste,competences,note,image)
 values(1,'Bob MARLEY',48,'Architecte Java','JEE,TALEND,BO','4,5','assets/images/bob.png');

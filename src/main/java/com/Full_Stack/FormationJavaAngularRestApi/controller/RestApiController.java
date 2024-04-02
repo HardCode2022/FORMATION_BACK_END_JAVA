@@ -59,6 +59,8 @@ public class RestApiController {
 	@Autowired
 	private UserRepository userRepository;
 
+	private final List<String> listRoles=List.of("CONSULTATION","CREATION","MODIFICATION","ADMIN");
+
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> authUser(@RequestBody LoginForm loginRequest) {
 
@@ -67,10 +69,15 @@ public class RestApiController {
 		if (user != null && user.getPassword().equals(loginRequest.getPassword())) {
 			// Si les informations d'identification sont valides, générer le jeton JWT
 			UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
-			Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			String token = jwtTokenProvider.generateToken(authentication);
-			return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+			if (userDetails.getAuthorities().stream().anyMatch(autority-> listRoles.contains(autority.getAuthority()))) {
+				Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+				String token =jwtTokenProvider.generateToken(authentication);
+
+				return  ResponseEntity.ok(new JwtAuthenticationResponse(token));
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Droit utilisateur Inssuffisant pour la connexion");
+			}
 		} else {
 			// Si les informations d'identification ne sont pas valides, renvoyer une erreur d'authentification
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Nom d'utilisateur ou mot de passe incorrect");

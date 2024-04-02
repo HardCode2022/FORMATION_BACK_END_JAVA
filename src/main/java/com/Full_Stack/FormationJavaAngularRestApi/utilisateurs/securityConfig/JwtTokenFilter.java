@@ -1,9 +1,6 @@
 package com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.securityConfig;
 
-import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.securityConfig.JwtTokenProvider;
 import io.jsonwebtoken.io.IOException;
-
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

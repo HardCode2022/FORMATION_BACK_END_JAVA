@@ -18,7 +18,7 @@ import java.util.Date;
 public class JwtTokenProvider {
 
     private final String secret = "Secret"; // Clé secrète pour signer les tokens
-    private final  SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
     @Autowired
     private CustomUserDetailsService userDetailsService;

@@ -22,6 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RoleRepository roleRepository ;
 
@@ -30,9 +31,24 @@ public class CustomUserDetailsService implements UserDetailsService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         // Recherche de l'utilisateur dans la base de données
         User user = userRepository.findByUsername(username);
-        Random random = new Random();
-        // Si l'utilisateur n'est pas trouvé, créez un nouvel utilisateur avec des informations minimales
+
         if (user == null) {
+            throw new UsernameNotFoundException("Utilisateur non trouvé avec le nom d'utilisateur: " + username);
+        }
+        Optional<Role> roles = roleRepository.findById(user.getId());
+        if (null == user.getRoles() && roles.isPresent()){
+            Role role = roles.get();
+            user.setRoles( new ArrayList<>());
+            user.getRoles().add(role);
+        }
+        // Mapper les rôles de l'utilisateur en GrantedAuthority
+        List<CustomGrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new CustomGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
+
+        /* Random random = new Random();
+        // Si l'utilisateur n'est pas trouvé, créez un nouvel utilisateur avec des informations minimales
+       if (user == null) {
             // Créez un nouvel utilisateur avec un rôle par défaut
             user = new User();
             user.setUsername(username);
@@ -42,19 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             adminRole = roleRepository.save(adminRole);
             user.setRoles(List.of(adminRole));
             userRepository.save(user);
-        }
-
-         Optional<Role> roles = roleRepository.findById(user.getId());
-
-        if (null == user.getRoles() && roles.isPresent()){
-            Role role = roles.get();
-            user.setRoles( new ArrayList<>());
-            user.getRoles().add(role);
-         }
-        // Mapper les rôles de l'utilisateur en GrantedAuthority
-        List<CustomGrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new CustomGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+        }*/
 
         // Construisez UserDetails à partir de l'utilisateur trouvé ou créé
         return new org.springframework.security.core.userdetails.User(user.getUsername(), passwordEncoder.encode(user.getPassword()), authorities);
