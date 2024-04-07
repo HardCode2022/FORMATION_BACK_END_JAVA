@@ -40,26 +40,13 @@ public class CustomUserDetailsService implements UserDetailsService {
             Role role = roles.get();
             user.setRoles( new ArrayList<>());
             user.getRoles().add(role);
+        } else {
+            throw new UsernameNotFoundException("Pas de de roles associés pour le Username : " + username);
         }
         // Mapper les rôles de l'utilisateur en GrantedAuthority
         List<CustomGrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new CustomGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-
-        /* Random random = new Random();
-        // Si l'utilisateur n'est pas trouvé, créez un nouvel utilisateur avec des informations minimales
-       if (user == null) {
-            // Créez un nouvel utilisateur avec un rôle par défaut
-            user = new User();
-            user.setUsername(username);
-            user.setPassword(passwordEncoder.encode(""));
-            // Créer un nouveau rôle ADMIN
-            Role adminRole = new Role(random.nextLong(), "ADMIN");
-            adminRole = roleRepository.save(adminRole);
-            user.setRoles(List.of(adminRole));
-            userRepository.save(user);
-        }*/
-
         // Construisez UserDetails à partir de l'utilisateur trouvé ou créé
         return new org.springframework.security.core.userdetails.User(user.getUsername(), passwordEncoder.encode(user.getPassword()), authorities);
  }

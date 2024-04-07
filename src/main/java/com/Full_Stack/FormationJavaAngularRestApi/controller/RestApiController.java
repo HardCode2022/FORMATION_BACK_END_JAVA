@@ -66,7 +66,7 @@ public class RestApiController {
 
 		User user = userRepository.findByUsername(loginRequest.getUsername());
 		// Vérifier si l'utilisateur existe et si le mot de passe est correct
-		if (user != null && user.getPassword().equals(loginRequest.getPassword())) {
+		if (user != null && isUser(loginRequest, user)) {
 			// Si les informations d'identification sont valides, générer le jeton JWT
 			UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
 			if (userDetails.getAuthorities().stream().anyMatch(autority-> listRoles.contains(autority.getAuthority()))) {
@@ -82,6 +82,16 @@ public class RestApiController {
 			// Si les informations d'identification ne sont pas valides, renvoyer une erreur d'authentification
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Nom d'utilisateur ou mot de passe incorrect");
 		}
+	}
+
+	/**
+	 * Verifier que c'est le user en BDD
+	 * @param loginRequest loginRequest
+	 * @param user user
+	 * @return true or false
+	 */
+	private static boolean isUser(LoginForm loginRequest, User user) {
+		return user.getUsername().equals(loginRequest.getUsername()) && user.getPassword().equals(loginRequest.getPassword());
 	}
 
 
