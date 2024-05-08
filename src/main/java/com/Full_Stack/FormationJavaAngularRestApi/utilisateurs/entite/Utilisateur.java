@@ -1,21 +1,29 @@
 package com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.entite;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Utilisateur {
+@Table(name ="UTILISATEUR")
+public class Utilisateur implements Serializable {
+
+	private  static final long serialVersionUID= -32227755586657672L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long  id ;
+	@Column(name = "NOM")
 	private String nom ;
+	@Column(name = "AGE")
 	private Long age;
+	@Column(name = "POSTE")
 	private String poste;
+	@Column(name = "COMPETENCES")
 	private String competences;
+	@Column(name ="NOTE")
 	private String note;
+	@Column(name = "IMAGE")
 	private String image;
 	
 	public Utilisateur() {
@@ -79,7 +87,5 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [id=" + id + ", nom=" + nom + ", age=" + age + ", poste=" + poste + ", competences="
 				+ competences + ", note=" + note + ", image=" + image + "]";
-	} 
-	
-	
+	}
 }

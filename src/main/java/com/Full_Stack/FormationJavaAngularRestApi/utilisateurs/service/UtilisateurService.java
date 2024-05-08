@@ -1,7 +1,7 @@
 package com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.service;
 
 import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.entite.Utilisateur;
-import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.repoutilisateur.UtilisateurJpaRepo;
+import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import java.util.Optional;
 public class UtilisateurService {
 
     @Autowired
-    private UtilisateurJpaRepo utilisateurService;
+    private UtilisateurRepository utilisateurRepository;
 
     /**
      * Recuperation de l'ensemble des utilisateurs
      * @return list utilisateurs
      */
     public List<Utilisateur> recupererListeUtilisateur(){
-        return (List<Utilisateur>) utilisateurService.findAll();
+        return (List<Utilisateur>) utilisateurRepository.findAll();
     }
 
     /**
@@ -27,7 +27,7 @@ public class UtilisateurService {
      * @return utilisateur
      */
    public Optional<Utilisateur> recupererUtilisateurParId(Long id){
-        return utilisateurService.findById(id);
+        return utilisateurRepository.findById(id);
    }
 
     /**
@@ -35,7 +35,7 @@ public class UtilisateurService {
      * @return utilisateur
      */
    public Utilisateur creationUtilisateur(Utilisateur nouveauUtilisateur){
-       return utilisateurService.save(nouveauUtilisateur);
+       return utilisateurRepository.save(nouveauUtilisateur);
    }
 
     /**
@@ -43,7 +43,7 @@ public class UtilisateurService {
      * @param id utilisateur
      */
    public void suppressionUtilisateur(Long id){
-       utilisateurService.deleteById(id);
+       utilisateurRepository.deleteById(id);
    }
 
     /**
@@ -53,6 +53,6 @@ public class UtilisateurService {
      * @return utilisateur
      */
    public Utilisateur miseAjourUtilisateur(Long id , Utilisateur utilisateur){
-       return  utilisateurService.save(utilisateur);
+       return  utilisateurRepository.save(utilisateur);
    }
 }

@@ -11,9 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.UtilisateurController;
 import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.entite.Utilisateur;
-import com.Full_Stack.FormationJavaAngularRestApi.utilisateurs.repoutilisateur.UtilisateurJpaRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

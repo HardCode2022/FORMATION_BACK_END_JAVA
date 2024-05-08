@@ -17,3 +17,8 @@ values(5, 'Kilian MISERE', 38,'Informaticien', 'KAFKA,QLIKSENCE,C++','4','assets
 insert into Utilisateur(id, nom,age,poste,competences,note,image)
 values(6, 'Roland FRANCK', 40,'Ingenieur Decisionnel', 'TEST,APPELLE,INTERNET','3,7','assets/images/Roland.png');
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO user_connexion(user_id, password, username)
+VALUES (1, 'Janvier2024@', 'MAU0932');
+
+INSERT INTO user_role(role_id, role_name)
+VALUES (1, 'ADMIN');
