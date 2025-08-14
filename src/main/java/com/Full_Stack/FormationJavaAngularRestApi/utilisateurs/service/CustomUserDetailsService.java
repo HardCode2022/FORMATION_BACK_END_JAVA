@@ -42,7 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(null==user.getRoles() && roles.isPresent()){
            Role role = roles.get();
            user.setRoles( new ArrayList<>());
-           user.getRoles().add(role);
+           user.getRoles().add(role); 
         }else{
             throw  new UsernameNotFoundException("Aucun role n'est associé à cet username : " + username );
         }

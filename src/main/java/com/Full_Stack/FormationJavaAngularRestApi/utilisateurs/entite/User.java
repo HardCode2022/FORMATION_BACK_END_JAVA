@@ -22,11 +22,8 @@ public class User implements Serializable {
     private  String password ;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable (
-            name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name="ROLE_ID")
-    )
+    @JoinTable (name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name="ROLE_ID"))
     @Transient
     private List<Role> roles;
 

@@ -58,7 +58,6 @@ public class RestApiController {
 				Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				String token =jwtTokenProvider.generateToken(authentication);
-
 				return  ResponseEntity.ok(new JwtAuthentificationResponse(token));
 			}else{
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("L'utilisateur n'a pas tous les droits necessaire");
@@ -93,16 +92,14 @@ public class RestApiController {
 
 	// Publier/Sauvegarde des données en BDD
 	@PostMapping("utilisateurs/creation")
-	public ResponseEntity<Utilisateur> creationUtilisateur(@RequestBody Utilisateur nouveauUtilisateur)
-			throws ServerException {
+	public ResponseEntity<Utilisateur> creationUtilisateur(@RequestBody Utilisateur nouveauUtilisateur) throws ServerException {
 
 		Utilisateur utilisateur = utilisateurService.creationUtilisateur(nouveauUtilisateur);
 
 		if (utilisateur == null) {
 			throw new ServerException("Erreur de serveur");
 		} else {
-			URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(utilisateur.getId())
-					.toUri();
+			URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(utilisateur.getId()).toUri();
 			return ResponseEntity.created(url).build();
 		}
 	}
